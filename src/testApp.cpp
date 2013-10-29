@@ -7,6 +7,7 @@ void testApp::setup(){
     ofBackground(0);
     ofEnableSmoothing();
     ofSetCircleResolution(500);
+    ofEnableAlphaBlending();
     
     sound1.loadSound("sound1.mp3");
     sound2.loadSound("sound2.mp3");
@@ -14,10 +15,7 @@ void testApp::setup(){
     sound4.loadSound("sound4.mp3");
     sound5.loadSound("sound5.mp3");
     sound6.loadSound("sound6.mp3");
-    sound7.loadSound("sound7.mp3");
-    sound8.loadSound("sound8.mp3");
-    sound9.loadSound("sound9.mp3");
-    sound10.loadSound("sound10.mp3");
+
     
     sound1.setLoop(false);
     sound1.setVolume(0.5);
@@ -38,6 +36,11 @@ void testApp::setup(){
     time=0.06;
     n=1;
 
+    
+    
+    
+    
+    
 }
 
 //---------------------------- ----------------------------------
@@ -66,6 +69,72 @@ void testApp::draw(){
     sun.draw(ofGetWidth()/2-400, ofGetHeight()/2-320, 800, 640);
     ofSetColor(255, 255, 255, 255-almapped);
     sun1.draw(ofGetWidth()/2-400, ofGetHeight()/2-320, 800, 640);
+
+    
+    for (int i=0; i<200; i++) {
+        for (int j=0; j<100; j++) {
+            float step = 20;
+            posb.x=i*20;
+            posb.y=j*20;
+            mouse.x=ofGetWidth()/2;
+            mouse.y=ofGetHeight()/2;
+            int distance= (mouse - posb).length();
+            distance=ofMap(distance, 0, 500, 0, 100);
+            
+            ofSetColor(i/2, 100-j, ofMap(i, 0, ofGetWidth()/20, 100, 0), distance*2-150);
+            ofTriangle(i*step, j*step, (i+1)*step, j*step, (i+0.5)*step, (j+0.5)*step);
+            
+            ofSetColor(i/2, 100-j, ofMap(i, 0, ofGetWidth()/20, 100, 0), distance*1.8-150);
+            ofTriangle((i-0.5)*step, (j+0.5)*step, (i+0.5)*step, (j+0.5)*step, (i)*step, (j+1)*step);
+            
+            ofSetColor(i/2, 100-j, ofMap(i, 0, ofGetWidth()/20, 100, 0), distance-80);
+            ofTriangle(i*step, j*step, (i+0.5)*step, (j+0.5)*step, i*step, (j+0.5)*step);
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    //
+//    float step=20;
+//    for (int i=0; i<200; i++) {
+//        for (int j=0; j<100; j++) {
+//            pos.x=i*20;
+//            pos.y=j*20;
+//            
+//            mouse.x=mouseX;
+//            mouse.y=mouseY;
+//            int distance= (mouse - pos).length();
+//            distance=ofMap(distance, 0, 100, 0, 255);
+//            distance=ofClamp(distance, 0, 255);
+//            
+//            
+//            ofSetColor(i*5, j*10, ofMap(i, 0, ofGetWidth()/20, 255, 0), distance*3+60);
+//            ofTriangle(i*step, j*step, (i+1)*step, j*step, (i+0.5)*step, (j+0.5)*step);
+//            
+//            ofSetColor(i*5, j*10, ofMap(i, 0, ofGetWidth()/20, 255, 0), distance/2+10);
+//            ofTriangle((i-0.5)*step, (j+0.5)*step, (i+0.5)*step, (j+0.5)*step, (i)*step, (j+1)*step);
+//            
+//            ofSetColor(i*5, j*10, ofMap(i, 0, ofGetWidth()/20, 255, 0), distance/2-40);
+//            ofTriangle(i*step, j*step, (i+0.5)*step, (j+0.5)*step, i*step, (j+0.5)*step);
+//            
+//            ofSetColor(i*5, j*10, ofMap(i, 0, ofGetWidth()/20, 255, 0), distance/2-40);
+//            ofTriangle((i+0.5)*step, (j+0.5)*step, (i+0.5)*step, (j+1)*step, (i+0.5)*step, (j+1)*step);
+//            
+//            
+//            
+//        }
+//    }
+//    
+//
+
+    
+    
+    
+    
     
     //ImageSequence............
 
@@ -110,7 +179,7 @@ void testApp::draw(){
     
     //Mouse............
     
-    ofSetColor(255, 255, 255, 200);
+    ofSetColor(100+pos.x/10, 255-pos.y/10, ofMap(pos.x, 0, ofGetWidth(), 200, 0), 200);
     float xorig = pos.x;
 	float yorig = pos.y;
 	float radius = 50;
@@ -118,6 +187,10 @@ void testApp::draw(){
 	float x = xorig + radius * cos(angle);
 	float y = yorig + radius * sin(angle);
 	ofCircle(x, y, 5);
+    ofBeginShape();
+    ofSetLineWidth(1);
+    ofVertex(x, y);
+    ofEndShape();
     
    //Sound............
     
@@ -127,7 +200,7 @@ void testApp::draw(){
     
     for (int i=0; i<4; i++) {
         ofSetColor(255, 255, 255, 80-abs(mouseX-ofGetWidth()/2+360-i*240)/20);
-        ofCircle(ofGetWidth()/2-360+i*240, 750, 3);
+        ofCircle(ofGetWidth()*0.2+i*ofGetWidth()/5, 800, 3);
         }
 
     }

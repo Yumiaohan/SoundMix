@@ -35,8 +35,8 @@ class testApp : public ofBaseApp
 	ofImage sun, sun1;
 	bool playing;
     float n, time, al, almapped, angle, angle1;
-    ofPoint  pos, prevPos;
-    ofSoundPlayer sound1, sound2, sound3, sound4, sound5, sound6, sound7, sound8, sound9, sound10;
+    ofPoint  pos, posb, prevPos, mouse;
+    ofSoundPlayer sound1, sound2, sound3, sound4, sound5, sound6;
     
     
 
